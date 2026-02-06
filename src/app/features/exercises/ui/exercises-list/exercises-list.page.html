@@ -1,0 +1,76 @@
+@let exercises = exercises$ | async;
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="primary">
+      <ion-button (click)="onAddExercise()">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ 'EXERCISES.TITLE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <div class="ion-margin">
+    @for (muscleGroup of muscleGroups$ | async; track muscleGroup.name) {
+    <ion-chip
+      [outline]="!isSelected(muscleGroup.name)"
+      (click)="onFilterChange(muscleGroup.name)"
+    >
+      {{ muscleGroup.name | muscleGroupTranslate | titlecase }}
+    </ion-chip>
+    }
+  </div>
+
+  @if (!exercises?.length) {
+  <ion-card>
+    <ion-card-content>
+      {{ 'EXERCISES.LIST.NO_EXERCISES' | translate }}
+    </ion-card-content>
+
+    <ion-button fill="clear" (click)="onAddExercise()">
+      {{ 'EXERCISES.LIST.ADD_EXERCISE' | translate }}
+    </ion-button>
+  </ion-card>
+  }
+  <!--  -->
+  @else {
+  <ion-list inset lines="full" #listSlidings>
+    @for (exercise of exercises; track exercise.id) {
+    <ion-item-sliding>
+      <ion-item button detail="true" (click)="onViewExercise(exercise.id)">
+        <ion-label>
+          <h2>{{ exercise.name }}</h2>
+          <p>
+            <span
+              >{{ exercise.muscleGroup | muscleGroupTranslate | titlecase
+              }}</span
+            >
+          </p>
+        </ion-label>
+        <ion-icon
+          slot="start"
+          size="small"
+          [color]="getPerformanceColor(exercise | exercisePerformance)"
+          [icon]="getPerformanceIcon(exercise | exercisePerformance)"
+        />
+      </ion-item>
+      <ion-item-options>
+        <ion-item-option color="none" (click)="onUpdateExercise(exercise)">
+          <ion-icon slot="icon-only" size="small" name="pencil"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="none" (click)="onDeleteExercise(exercise)">
+          <ion-icon
+            slot="icon-only"
+            color="danger"
+            size="small"
+            name="trash"
+          ></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    }
+  </ion-list>
+  }
+</ion-content>

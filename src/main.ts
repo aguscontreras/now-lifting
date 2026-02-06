@@ -1,14 +1,52 @@
+import { inject, provideAppInitializer } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules } from '@angular/router';
-import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
+import {
+  RouteReuseStrategy,
+  provideRouter,
+  withPreloading,
+  PreloadAllModules,
+} from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import {
+  IonicRouteStrategy,
+  provideIonicAngular,
+} from '@ionic/angular/standalone';
+
+import { provideTranslateService } from '@ngx-translate/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
+import { db } from '@core/db';
+import { DbSeedService } from '@core/app-init';
+import { MuscleGroupLoader } from '@core/app-init';
+import { ExerciseHydrationService } from '@feat/exercises/application';
 
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    provideIonicAngular(),
+    provideIonicAngular({
+      toastDuration: 3000,
+    }),
     provideRouter(routes, withPreloading(PreloadAllModules)),
+    provideAppInitializer(db.init.bind(db)),
+    provideHttpClient(),
+    provideTranslateService({
+      loader: provideTranslateHttpLoader({
+        prefix: './assets/i18n/',
+        suffix: '.json',
+      }),
+      fallbackLang: 'es',
+      lang: 'es',
+    }),
+    provideAppInitializer(() => {
+      const dbSeedService = inject(DbSeedService);
+      const muscleGroupLoader = inject(MuscleGroupLoader);
+      return dbSeedService.seed().then(() => muscleGroupLoader.load());
+    }),
+    provideAppInitializer(() => {
+      const exercisesHydration = inject(ExerciseHydrationService);
+      return exercisesHydration.hydrate();
+    }),
   ],
 });

@@ -1,0 +1,51 @@
+{
+  "MUSCLE_GROUPS": {
+    "CHEST": "Pecho",
+    "BACK": "Espalda",
+    "LEGS": "Piernas",
+    "ARMS": "Brazos",
+    "SHOULDERS": "Hombros",
+    "ABS": "Abdominales",
+    "CORE": "Core",
+    "GLUTES": "Glúteos"
+  },
+  "EXERCISES": {
+    "TITLE": "Ejercicios",
+    "LIST": {
+      "NO_EXERCISES_TITLE": "No hay ejercicios",
+      "NO_EXERCISES": "No hay ejercicios disponibles. Agrega algunos para empezar.",
+      "ADD_EXERCISE": "Agregar",
+      "CREATED_SUCCESS": "Ejercicio creado.",
+      "UPDATED_SUCCESS": "Ejercicio actualizado.",
+      "DELETED_SUCCESS": "Ejercicio eliminado.",
+      "ERROR_DELETING": "Error al eliminar el ejercicio.",
+      "DELETE_CONFIRM_TITLE": "Confirmar eliminación",
+      "DELETE_CONFIRM_MESSAGE": "¿Está seguro de que desea eliminar el ejercicio '{{name}}'?"
+    },
+    "ADD_EXERCISE": {
+      "TITLE": "Agregar nuevo ejercicio",
+      "NAME_LABEL": "Nombre",
+      "NAME_PLACEHOLDER": "Ingrese el nombre del ejercicio",
+      "NAME_ERROR_REQUIRED": "El nombre es obligatorio",
+      "MUSCLE_GROUP_LABEL": "Grupo muscular",
+      "MUSCLE_GROUP_PLACEHOLDER": "Seleccione el grupo muscular",
+      "MUSCLE_GROUP_ERROR_REQUIRED": "El grupo muscular es obligatorio",
+      "DESCRIPTION_LABEL": "Descripción",
+      "DESCRIPTION_PLACEHOLDER": "Ingrese una descripción del ejercicio",
+      "LINK_LABEL": "Enlace",
+      "LINK_PLACEHOLDER": "Ingrese un enlace relacionado con el ejercicio"
+    }
+  },
+  "ACTIONS": {
+    "CANCEL": "Cancelar",
+    "SAVE": "Guardar",
+    "OK": "Aceptar",
+    "VIEW": "Ver",
+    "EDIT": "Editar",
+    "DELETE": "Eliminar"
+  },
+  "MESSAGES": {
+    "OPTIONAL": "Opcional",
+    "CHECK_FORM_ERRORS": "Por favor, revise los errores en el formulario."
+  }
+}

@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">
+        {{ "ACTIONS.CANCEL" | translate }}
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button type="submit" form="form">
+        {{ "ACTIONS.SAVE" | translate }}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h4 class="ion-padding-horizontal">
+    {{ "EXERCISES.ADD_EXERCISE.TITLE" | translate }}
+  </h4>
+
+  <form id="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <ion-list inset>
+      <ion-item lines="none">
+        <ion-input
+          labelPlacement="floating"
+          [label]="'EXERCISES.ADD_EXERCISE.NAME_LABEL' | translate"
+          formControlName="name"
+          [errorText]="'EXERCISES.ADD_EXERCISE.NAME_ERROR_REQUIRED' | translate"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-select
+          [label]="'EXERCISES.ADD_EXERCISE.MUSCLE_GROUP_LABEL' | translate"
+          label-placement="floating"
+          formControlName="muscleGroup"
+          [cancelText]="'ACTIONS.CANCEL' | translate"
+          [okText]="'ACTIONS.OK' | translate"
+          [errorText]="
+            'EXERCISES.ADD_EXERCISE.MUSCLE_GROUP_ERROR_REQUIRED' | translate
+          "
+        >
+          @for (muscleGroup of muscleGroups$ | async; track muscleGroup.name) {
+            <ion-select-option [value]="muscleGroup.name">
+              {{ muscleGroup.name | muscleGroupTranslate | titlecase }}
+            </ion-select-option>
+          }
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          labelPlacement="floating"
+          [label]="'EXERCISES.ADD_EXERCISE.LINK_LABEL' | translate"
+          formControlName="link"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-textarea
+          labelPlacement="floating"
+          [label]="'EXERCISES.ADD_EXERCISE.DESCRIPTION_LABEL' | translate"
+          formControlName="description"
+        ></ion-textarea>
+      </ion-item>
+    </ion-list>
+  </form>
+
+  <ion-toast
+    [isOpen]="showErrorToast"
+    [message]="'MESSAGES.CHECK_FORM_ERRORS' | translate"
+    [duration]="5000"
+    color="warning"
+    (didDismiss)="showErrorToast = false"
+  ></ion-toast>
+</ion-content>
