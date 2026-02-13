@@ -22,6 +22,14 @@
       "DELETE_CONFIRM_TITLE": "Confirmar eliminación",
       "DELETE_CONFIRM_MESSAGE": "¿Está seguro de que desea eliminar el ejercicio '{{name}}'?"
     },
+    "DETAIL": {
+      "LOGS": "Registros",
+      "GOAL": "Objetivo",
+      "INITIAL": "Inicial",
+      "LAST": "Último",
+      "BEST": "Mejor",
+      "PROGRESS": "Progreso"
+    },
     "ADD_EXERCISE": {
       "TITLE": "Agregar nuevo ejercicio",
       "NAME_LABEL": "Nombre",
