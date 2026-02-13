@@ -36,6 +36,27 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
 
-ion-input, ion-textarea, ion-select {
+ion-input,
+ion-textarea,
+ion-select {
   --highlight-color-valid: unset !important;
+}
+
+ion-modal {
+  &::part(backdrop) {
+    opacity: 0.5 !important;
+  }
+
+  &.floating {
+    --width: fit-content;
+    --min-width: 65vw;
+    --max-width: 90vw;
+    --height: fit-content;
+    --border-radius: 0.5em;
+    --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+
+    &.fixed-width {
+      --width: 90vw;
+    }
+  }
 }

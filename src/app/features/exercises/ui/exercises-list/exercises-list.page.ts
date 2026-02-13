@@ -109,7 +109,7 @@ export class ExercisesListPage {
       const message = this.translateService.instant(
         'EXERCISES.LIST.CREATED_SUCCESS',
       );
-      const text = this.translateService.instant('ACTIONS.VIEW');
+      const text = this.translateService.instant('COMMON.VIEW');
 
       const toast = await this.toastController.create({
         message,
@@ -134,7 +134,7 @@ export class ExercisesListPage {
       const message = this.translateService.instant(
         'EXERCISES.LIST.UPDATED_SUCCESS',
       );
-      const text = this.translateService.instant('ACTIONS.VIEW');
+      const text = this.translateService.instant('COMMON.VIEW');
 
       const toast = await this.toastController.create({
         message,
@@ -162,11 +162,11 @@ export class ExercisesListPage {
       ),
       buttons: [
         {
-          text: this.translateService.instant('ACTIONS.CANCEL'),
+          text: this.translateService.instant('COMMON.CANCEL'),
           role: 'cancel',
         },
         {
-          text: this.translateService.instant('ACTIONS.DELETE'),
+          text: this.translateService.instant('COMMON.DELETE'),
           role: 'destructive',
           handler: async () => {
             await this.exercisesService.remove(exercise.id);

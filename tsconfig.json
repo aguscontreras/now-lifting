@@ -18,6 +18,8 @@
     "importHelpers": true,
     "target": "es2022",
     "module": "es2020",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "lib": [
       "es2018",
       "dom"
@@ -28,13 +30,14 @@
       "@app/*": ["src/app/*"],
       "@core/*": ["src/app/core/*"],
       "@shared/*": ["src/app/shared/*"],
-      "@feat/exercises/*": ["src/app/features/exercises/*"]
+      "@feat/exercises/*": ["src/app/features/exercises/*"],
+      "@feat/workout-logs/*": ["src/app/features/workout-logs/*"]
     },
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
   }
 }

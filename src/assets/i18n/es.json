@@ -36,13 +36,21 @@
       "LINK_PLACEHOLDER": "Ingrese un enlace relacionado con el ejercicio"
     }
   },
-  "ACTIONS": {
+  "WORKOUT_LOGS": {
+    "ADD_LOG": {
+      "TITLE": "Crear registro",
+      "WEIGHT_LABEL": "Peso levantado",
+      "REPS_LABEL": "Repeticiones"
+    }
+  },
+  "COMMON": {
     "CANCEL": "Cancelar",
     "SAVE": "Guardar",
     "OK": "Aceptar",
     "VIEW": "Ver",
     "EDIT": "Editar",
-    "DELETE": "Eliminar"
+    "DELETE": "Eliminar",
+    "NEXT": "Siguiente"
   },
   "MESSAGES": {
     "OPTIONAL": "Opcional",

@@ -8,10 +8,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'exercises',
-        loadComponent: () =>
-          import('../features/exercises/ui/exercises-list/exercises-list.page').then(
-            (m) => m.ExercisesListPage,
-          ),
+        loadChildren: () => import('../features/exercises/exercises.routes').then(m => m.routes),
       },
     ],
   },

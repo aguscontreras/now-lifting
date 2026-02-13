@@ -1,0 +1,76 @@
+<ion-footer [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">
+        {{ "COMMON.CANCEL" | translate }}
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      @switch (step) {
+        @case (0) {
+          <ion-button type="button" (click)="nextStep()" [disabled]="f.weight.invalid">
+            {{ "COMMON.NEXT" | translate }}
+          </ion-button>
+        }
+
+        @case (1) {
+          <ion-button type="submit" form="form" [disabled]="form.invalid">
+            {{ "COMMON.SAVE" | translate }}
+          </ion-button>
+        }
+      }
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ "WORKOUT_LOGS.ADD_LOG.TITLE" | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<form
+  id="form"
+  class="ion-margin-top"
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+>
+  @switch (step) {
+    @case (0) {
+      <ion-item lines="none" detail="false">
+        <ion-input
+          #weightInput
+          [clearOnEdit]="true"
+          appNumpadInput
+          [precision]="2"
+          type="text"
+          slot="start"
+          labelPlacement="floating"
+          [label]="'WORKOUT_LOGS.ADD_LOG.WEIGHT_LABEL' | translate"
+          formControlName="weight"
+        ></ion-input>
+
+        <ion-select value="kg" slot="end">
+          <ion-select-option value="kg">kg</ion-select-option>
+          <ion-select-option value="lb">lb</ion-select-option>
+        </ion-select>
+      </ion-item>
+    }
+
+    @case (1) {
+      <ion-item lines="none" detail="false">
+        <ion-input
+          #repsInput
+          [clearOnEdit]="true"
+          appNumpadInput
+          type="text"
+          labelPlacement="floating"
+          [label]="'WORKOUT_LOGS.ADD_LOG.REPS_LABEL' | translate"
+          formControlName="reps"
+        ></ion-input>
+      </ion-item>
+    }
+  }
+</form>
+
+<app-numpad actionButton="backspace" />

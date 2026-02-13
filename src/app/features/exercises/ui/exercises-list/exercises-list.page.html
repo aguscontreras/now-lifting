@@ -4,7 +4,7 @@
   <ion-toolbar>
     <ion-buttons slot="primary">
       <ion-button (click)="onAddExercise()">
-        <ion-icon name="add"></ion-icon>
+        <ion-icon name="add" size="large"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>{{ 'EXERCISES.TITLE' | translate }}</ion-title>
@@ -43,10 +43,9 @@
         <ion-label>
           <h2>{{ exercise.name }}</h2>
           <p>
-            <span
-              >{{ exercise.muscleGroup | muscleGroupTranslate | titlecase
-              }}</span
-            >
+            <span>
+              {{ exercise.muscleGroup | muscleGroupTranslate | titlecase}}
+            </span>
           </p>
         </ion-label>
         <ion-icon

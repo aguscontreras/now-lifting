@@ -2,12 +2,12 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button color="medium" (click)="cancel()">
-        {{ "ACTIONS.CANCEL" | translate }}
+        {{ "COMMON.CANCEL" | translate }}
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button type="submit" form="form">
-        {{ "ACTIONS.SAVE" | translate }}
+        {{ "COMMON.SAVE" | translate }}
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -19,26 +19,22 @@
   </h4>
 
   <form id="form" [formGroup]="form" (ngSubmit)="onSubmit()">
-    <ion-list inset>
-      <ion-item lines="none">
+    <ion-list inset lines="full">
+      <ion-item>
         <ion-input
           labelPlacement="floating"
           [label]="'EXERCISES.ADD_EXERCISE.NAME_LABEL' | translate"
           formControlName="name"
-          [errorText]="'EXERCISES.ADD_EXERCISE.NAME_ERROR_REQUIRED' | translate"
         ></ion-input>
       </ion-item>
 
-      <ion-item lines="none">
+      <ion-item>
         <ion-select
           [label]="'EXERCISES.ADD_EXERCISE.MUSCLE_GROUP_LABEL' | translate"
           label-placement="floating"
           formControlName="muscleGroup"
-          [cancelText]="'ACTIONS.CANCEL' | translate"
-          [okText]="'ACTIONS.OK' | translate"
-          [errorText]="
-            'EXERCISES.ADD_EXERCISE.MUSCLE_GROUP_ERROR_REQUIRED' | translate
-          "
+          [cancelText]="'COMMON.CANCEL' | translate"
+          [okText]="'COMMON.OK' | translate"
         >
           @for (muscleGroup of muscleGroups$ | async; track muscleGroup.name) {
             <ion-select-option [value]="muscleGroup.name">

@@ -1,11 +1,13 @@
 import Dexie, { type Table } from 'dexie';
 import { MuscleGroup } from '@core/domain';
 import { Exercise, ExercisePerformance } from '@feat/exercises/models';
+import { WorkoutLog } from '@feat/workout-logs/models';
 
 export class DB extends Dexie {
   muscleGroups!: Table<MuscleGroup, string>;
   exercises!: Table<Exercise, string>;
   performance!: Table<ExercisePerformance, string>;
+  workoutLogs!: Table<WorkoutLog, string>;
 
   constructor() {
     super('now-lifting', { autoOpen: true });
@@ -18,6 +20,7 @@ export class DB extends Dexie {
           muscleGroups: 'name, bodySegment',
           exercises: 'id, name, muscleGroup',
           performance: 'exerciseId',
+          workoutLogs: 'id, date, exerciseId',
         });
 
         resolve(true);
