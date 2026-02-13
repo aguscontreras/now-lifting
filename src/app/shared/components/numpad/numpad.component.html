@@ -1,0 +1,25 @@
+<ion-grid>
+  @for (row of config.rows; track row) {
+    <ion-row>
+      @for (button of row.buttons; track button) {
+        <ion-col size="4">
+          <ion-button
+            expand="block"
+            fill="clear"
+            color="dark"
+            size="large"
+            (click)="button.action()"
+          >
+            @if (button.label) {
+              {{ button.label }}
+            }
+
+            @if (button.icon) {
+              <ion-icon slot="icon-only" [name]="button.icon"></ion-icon>
+            }
+          </ion-button>
+        </ion-col>
+      }
+    </ion-row>
+  }
+</ion-grid>

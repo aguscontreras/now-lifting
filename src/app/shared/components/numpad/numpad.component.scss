@@ -1,0 +1,7 @@
+:host {
+  // position: fixed;
+  bottom: var(--ion-safe-area-bottom);
+  display: block;
+  width: 100%;
+  border-top: 1px solid var(--ion-color-light);
+}

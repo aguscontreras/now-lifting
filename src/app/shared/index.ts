@@ -1,1 +1,2 @@
-export * from './pipes/muscle-group-translate.pipe';
+export * from './components';
+export * from './pipes';
