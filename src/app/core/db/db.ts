@@ -20,7 +20,7 @@ export class DB extends Dexie {
           muscleGroups: 'name, bodySegment',
           exercises: 'id, name, muscleGroup',
           performance: 'exerciseId',
-          workoutLogs: 'id, date, exerciseId',
+          workoutLogs: 'id, date, exerciseId, oneRm',
         });
 
         resolve(true);

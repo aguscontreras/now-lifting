@@ -1,1 +1,1 @@
-export * from './workout-log.repository';
+export * from './workout-logs.repository';

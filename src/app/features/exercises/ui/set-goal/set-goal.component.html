@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ "EXERCISES.SET_GOAL.TITLE" | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-footer [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">
+        {{ "COMMON.CANCEL" | translate }}
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button type="submit" form="form" [disabled]="form.invalid">
+        {{ "COMMON.SAVE" | translate }}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+
+<form
+  id="form"
+  #form="ngForm"
+  class="ion-margin-top"
+  (ngSubmit)="onSubmit(form)"
+>
+  <ion-item lines="none">
+    <ion-input
+      #input
+      appNumpadInput
+      [precision]="2"
+      type="text"
+      name="goal"
+      required
+      pattern="^(?!0+(\.0+)?$)(0|[1-9]\d*)(\.\d+)?$"
+      [(ngModel)]="goal"
+      [label]="'EXERCISES.SET_GOAL.GOAL_LABEL' | translate"
+      labelPlacement="floating"
+    >
+    </ion-input>
+
+    <ion-select value="kg" slot="end">
+      <ion-select-option value="kg">kg</ion-select-option>
+      <ion-select-option value="lb">lb</ion-select-option>
+    </ion-select>
+  </ion-item>
+</form>
+
+<app-numpad />

@@ -35,7 +35,7 @@ type ActionButtonName = 'backspace' | 'check' | 'arrow';
 })
 export class NumpadComponent implements OnInit {
   private numpadService = inject(NumpadService);
-  actionButton = input<ActionButtonName | undefined>(undefined);
+  actionButton = input<ActionButtonName | undefined>('backspace');
 
   config: NumpadConfig = {
     rows: [
@@ -135,8 +135,6 @@ export class NumpadComponent implements OnInit {
 
     const currentValue = input.value;
     const precision = this.numpadService.getCurrentPrecision();
-
-    console.log(precision);
 
     if (precision === 0) {
       return;

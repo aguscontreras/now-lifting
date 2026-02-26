@@ -20,15 +20,22 @@
       "DELETED_SUCCESS": "Ejercicio eliminado.",
       "ERROR_DELETING": "Error al eliminar el ejercicio.",
       "DELETE_CONFIRM_TITLE": "Confirmar eliminación",
-      "DELETE_CONFIRM_MESSAGE": "¿Está seguro de que desea eliminar el ejercicio '{{name}}'?"
+      "DELETE_CONFIRM_MESSAGE": "¿Está seguro de que desea eliminar el ejercicio '{{name}}'? Se borrará todo su progreso."
     },
     "DETAIL": {
       "LOGS": "Registros",
-      "GOAL": "Objetivo",
+      "GOAL": "Objetivo 1RM",
       "INITIAL": "Inicial",
       "LAST": "Último",
       "BEST": "Mejor",
-      "PROGRESS": "Progreso"
+      "PROGRESS": "Progreso",
+      "NOTES": "Notas",
+      "DELETE_LOG_TITLE": "Confirmar eliminación",
+      "DELETE_LOG_MESSAGE": "¿Está seguro de que desea eliminar este registro de ejercicio?",
+      "DELETE_LOG_SUCCESS": "Registro eliminado.",
+      "DELETE_LOG_ERROR": "Error al eliminar el registro.",
+      "NO_LOGS": "No hay registros disponibles para este ejercicio. Agrega algunos para empezar.",
+      "ADD_LOG": "Aregar"
     },
     "ADD_EXERCISE": {
       "TITLE": "Agregar nuevo ejercicio",
@@ -42,6 +49,10 @@
       "DESCRIPTION_PLACEHOLDER": "Ingrese una descripción del ejercicio",
       "LINK_LABEL": "Enlace",
       "LINK_PLACEHOLDER": "Ingrese un enlace relacionado con el ejercicio"
+    },
+    "SET_GOAL": {
+      "TITLE": "Crear objetivo 1RM",
+      "GOAL_LABEL": "Nuevo objetivo"
     }
   },
   "WORKOUT_LOGS": {

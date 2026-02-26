@@ -18,7 +18,9 @@ export type CreateExerciseDto = Pick<
 export class ExercisesService {
   private exercisesStore = inject(ExercisesStore);
   private exercisesRepository = inject(ExercisesRepository);
-  private exercisesPerformanceRepository = inject(ExercisesPerformanceRepository);
+  private exercisesPerformanceRepository = inject(
+    ExercisesPerformanceRepository,
+  );
   private exercisesPerformanceStore = inject(ExercisesPerformanceStore);
 
   async create(dto: CreateExerciseDto) {
@@ -50,5 +52,13 @@ export class ExercisesService {
     await this.exercisesStore.remove(id);
     await this.exercisesPerformanceRepository.delete(id);
     await this.exercisesPerformanceStore.remove(id);
+  }
+
+  async setOneRmGoal(
+    id: Exercise['id'],
+    oneRmGoal: ExercisePerformance['oneRmGoal'],
+  ) {
+    await this.exercisesPerformanceRepository.update(id, { oneRmGoal });
+    await this.exercisesPerformanceStore.update(id, { oneRmGoal });
   }
 }

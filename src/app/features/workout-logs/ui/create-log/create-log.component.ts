@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -15,7 +15,7 @@ import {
   IonTitle,
 } from '@ionic/angular/standalone';
 import { NumpadComponent, NumpadInputDirective } from '@shared/components';
-import { DummyLog } from '@feat/workout-logs/models';
+import { DummyLog, WorkoutLog } from '@feat/workout-logs/models';
 
 enum CreateLogStep {
   WEIGHT,
@@ -43,7 +43,7 @@ enum CreateLogStep {
     IonSelectOption,
   ],
 })
-export class CreateLogComponent implements AfterViewInit {
+export class CreateLogComponent implements OnInit, AfterViewInit {
   private modalController = inject(ModalController);
   private formBuilder = inject(FormBuilder);
 
@@ -53,10 +53,22 @@ export class CreateLogComponent implements AfterViewInit {
   @ViewChild('repsInput')
   private repsInput?: IonInput;
 
+  @Input()
+  private log?: WorkoutLog;
+
   form = this.createForm();
   focused: 'weight' | 'reps' = 'weight';
   showNumpad = false;
   step = CreateLogStep.WEIGHT;
+
+  ngOnInit(): void {
+    if (this.log) {
+      this.form.patchValue({
+        reps: String(this.log.reps),
+        weight: String(this.log.weight)
+      })
+    }
+  }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -81,7 +93,12 @@ export class CreateLogComponent implements AfterViewInit {
     }
 
     const parsedFormValue = this.parseDummyLog();
-    this.confirm(parsedFormValue);
+
+    if (this.log) {
+      this.confirm(parsedFormValue, 'update');
+    } else {
+      this.confirm(parsedFormValue);
+    }
   }
 
   onValueChange(value: string) {
@@ -113,7 +130,7 @@ export class CreateLogComponent implements AfterViewInit {
     return this.modalController.dismiss(null, action);
   }
 
-  confirm(result: DummyLog, action = 'create') {
+  confirm(result: DummyLog, action: 'create' | 'update' = 'create') {
     return this.modalController.dismiss(result, action);
   }
 }

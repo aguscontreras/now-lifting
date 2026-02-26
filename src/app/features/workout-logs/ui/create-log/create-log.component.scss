@@ -1,3 +1,15 @@
 ion-item {
   --background: transparent;
 }
+
+ion-header {
+  ion-toolbar {
+    padding-top: 0;
+  }
+}
+
+ion-footer {
+   ion-toolbar {
+    padding-bottom: 0;
+  }
+}

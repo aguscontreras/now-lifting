@@ -44,7 +44,7 @@ export class WorkoutLogsStore {
   );
 
   add(log: WorkoutLog) {
-    this.store.update(addEntities(log));
+    this.store.update(addEntities(log, { prepend: true }));
   }
 
   update(id: WorkoutLog['id'], log: Partial<WorkoutLog>) {

@@ -31,19 +31,22 @@ export class ExercisesPerformanceStore {
     this.store.update(addEntities(performance));
   }
 
-  update(performance: ExercisePerformance) {
-    this.store.update(updateEntities(performance.exerciseId, performance));
+  update(
+    exerciseId: ExercisePerformance['exerciseId'],
+    performance: Partial<ExercisePerformance>,
+  ) {
+    this.store.update(updateEntities(exerciseId, performance));
   }
 
-  remove(id: ExercisePerformance['exerciseId']) {
-    this.store.update(deleteEntities(id));
+  remove(exerciseId: ExercisePerformance['exerciseId']) {
+    this.store.update(deleteEntities(exerciseId));
   }
 
   set(performance: ExercisePerformance[]) {
     this.store.update(setEntities(performance));
   }
 
-  setActive(id: ExercisePerformance['exerciseId'] | null) {
-    this.store.update(setActiveId(id));
+  setActive(exerciseId: ExercisePerformance['exerciseId'] | null) {
+    this.store.update(setActiveId(exerciseId));
   }
 }

@@ -6,7 +6,7 @@ export interface ExercisePerformance {
   initialOneRm: number;
   lastOneRm: number;
   previousOneRm: number;
-  oneRmGoal?: number;
+  oneRmGoal: number;
 }
 
 export type ExercisePerformanceResult = 'improving' | 'declining' | 'stable' | 'no-data';

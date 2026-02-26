@@ -64,7 +64,7 @@ export class CreateExerciseComponent implements OnInit {
     return this.formBuilder.nonNullable.group({
       name: ['', Validators.required],
       muscleGroup: ['' as MuscleGroupName, Validators.required],
-      description: [''],
+      description: ['', Validators.maxLength(200)],
       link: [''],
     });
   }

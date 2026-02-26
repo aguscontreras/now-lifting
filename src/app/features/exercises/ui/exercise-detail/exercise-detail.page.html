@@ -21,20 +21,43 @@
   </ion-toolbar>
 </ion-header>
 
+@if(exercise && performance) {
 <ion-content>
-  @if (logs?.length) {
+  <ion-card>
+    <ion-card-content>
+      <ion-textarea
+        autoGrow
+        labelPlacement="floating"
+        [label]="'EXERCISES.DETAIL.NOTES' | translate"
+        [(ngModel)]="exercise.description"
+        (ionChange)="onUpdateNote(exercise)"
+      ></ion-textarea>
+    </ion-card-content>
+  </ion-card>
+
+  <!--  -->
+
+  @if (logs && logs.length) {
   <div echarts [options]="chartOption" class="demo-chart"></div>
   }
 
-  <ion-grid class="ion-margin-vertical">
+  <ion-grid>
     <ion-row>
       <ion-col size="6">
-        <ion-card class="ion-no-margin" button (click)="onSetGoal()">
+        <ion-card
+          class="ion-no-margin"
+          button
+          (click)="onSetGoal(exercise, performance)"
+        >
           <ion-card-header>
-            <ion-card-title color="success">
-              {{ performance?.oneRmGoal }}
+            <ion-card-title
+              [color]="performance.bestOneRm > performance.oneRmGoal ? 'success' : 'secondary'"
+            >
+              {{ performance.oneRmGoal }}
             </ion-card-title>
-            <ion-card-subtitle>Objetivo</ion-card-subtitle>
+            <ion-card-subtitle>
+              {{ "EXERCISES.DETAIL.GOAL" | translate}}
+            </ion-card-subtitle>
           </ion-card-header>
         </ion-card>
       </ion-col>
@@ -42,8 +65,10 @@
       <ion-col size="6">
         <ion-card class="ion-no-margin">
           <ion-card-header>
-            <ion-card-title> {{ performance?.initialOneRm }} </ion-card-title>
-            <ion-card-subtitle>Inicial</ion-card-subtitle>
+            <ion-card-title> {{ performance.initialOneRm }} </ion-card-title>
+            <ion-card-subtitle>
+              {{ "EXERCISES.DETAIL.INITIAL" | translate}}
+            </ion-card-subtitle>
           </ion-card-header>
         </ion-card>
       </ion-col>
@@ -51,8 +76,10 @@
       <ion-col size="6">
         <ion-card class="ion-no-margin">
           <ion-card-header>
-            <ion-card-title> {{ performance?.lastOneRm }} </ion-card-title>
-            <ion-card-subtitle>Último</ion-card-subtitle>
+            <ion-card-title> {{ performance.lastOneRm }} </ion-card-title>
+            <ion-card-subtitle>
+              {{ "EXERCISES.DETAIL.LAST" | translate}}
+            </ion-card-subtitle>
           </ion-card-header>
         </ion-card>
       </ion-col>
@@ -60,15 +87,21 @@
       <ion-col size="6">
         <ion-card class="ion-no-margin">
           <ion-card-header>
-            <ion-card-title>{{ performance?.bestOneRm }}</ion-card-title>
-            <ion-card-subtitle>Mejor</ion-card-subtitle>
+            <ion-card-title>{{ performance.bestOneRm }}</ion-card-title>
+            <ion-card-subtitle>
+              {{ "EXERCISES.DETAIL.BEST" | translate}}
+            </ion-card-subtitle>
           </ion-card-header>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-list inset lines="full">
+  <ion-list inset lines="full" #logsList>
+    <ion-list-header>
+      <ion-label>{{ "EXERCISES.DETAIL.LOGS" | translate }}</ion-label>
+    </ion-list-header>
+
     @for(logView of logs; track logView.log.id) {
     <ion-item-sliding>
       <ion-item detail="true" button>
@@ -78,18 +111,43 @@
             {{ logView.log.weight }} x {{ logView.log.reps }}
           </p>
         </ion-label>
-        
+
         @if (logView.oneRmDiff) {
-        <ion-note class="diff-note" slot="end" [color]="logView | performanceColor">
+        <ion-note
+          class="diff-note"
+          slot="end"
+          [color]="logView | performanceColor"
+        >
           {{ logView.oneRmDiff }}
         </ion-note>
         }
       </ion-item>
       <ion-item-options>
-        <ion-item-option></ion-item-option>
-        <ion-item-option></ion-item-option>
+        <ion-item-option color="none" (click)="onUpdateLog(logView.log)">
+          <ion-icon slot="icon-only" size="small" name="pencil"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="none" (click)="onDeleteLog(logView.log)">
+          <ion-icon
+            slot="icon-only"
+            color="danger"
+            size="small"
+            name="trash"
+          ></ion-icon>
+        </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
+    } @empty {
+    <ion-card class="card-empty">
+      <ion-card-content>
+        {{ 'EXERCISES.DETAIL.NO_LOGS' | translate }}
+      </ion-card-content>
+
+      <ion-button fill="clear" (click)="onAddLog(exercise)">
+        {{ 'EXERCISES.DETAIL.ADD_LOG' | translate }}
+      </ion-button>
+    </ion-card>
+
     }
   </ion-list>
 </ion-content>
+}
