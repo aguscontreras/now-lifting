@@ -9,6 +9,7 @@ import {
   ModalController,
   AlertController,
   ToastController,
+  NavController,
   IonHeader,
   IonToolbar,
   IonTitle,
@@ -60,7 +61,7 @@ import {
 import { Exercise, ExercisePerformance } from '@feat/exercises/models';
 import { PerformanceColorPipe } from '@feat/exercises/pipes';
 import { ExercisesService } from '@feat/exercises/application';
-import { SetGoalComponent } from '@feat/exercises/ui';
+import { CreateExerciseComponent, SetGoalComponent } from '@feat/exercises/ui';
 
 echarts.use([LineChart, GridComponent, CanvasRenderer, LegendComponent]);
 
@@ -103,6 +104,7 @@ echarts.use([LineChart, GridComponent, CanvasRenderer, LegendComponent]);
   providers: [provideEchartsCore({ echarts })],
 })
 export class ExerciseDetailPage implements AfterViewInit {
+  private translateService = inject(TranslateService);
   private logsService = inject(WorkoutLogService);
   private logsStore = inject(WorkoutLogsStore);
   private exercisesStore = inject(ExercisesStore);
@@ -112,7 +114,7 @@ export class ExerciseDetailPage implements AfterViewInit {
   private modalController = inject(ModalController);
   private alertController = inject(AlertController);
   private toastController = inject(ToastController);
-  private translateService = inject(TranslateService);
+  private navController = inject(NavController);
 
   @ViewChild('logsList') logsList?: IonList;
 
@@ -266,17 +268,14 @@ export class ExerciseDetailPage implements AfterViewInit {
     });
 
     await modal.present();
-    return modal.onDidDismiss().finally(() => this.logsList?.closeSlidingItems());
+    return modal
+      .onDidDismiss()
+      .finally(() => this.logsList?.closeSlidingItems());
   }
 
   async onDeleteLog(log: WorkoutLog) {
-    const alertHeader = this.translateService.instant(
-      'EXERCISES.DETAIL.DELETE_LOG_TITLE',
-    );
-
-    const alertMessage = this.translateService.instant(
-      'EXERCISES.DETAIL.DELETE_LOG_MESSAGE',
-    );
+    const alertHeader = this.translateService.instant('EXERCISES.DETAIL.DELETE_LOG_TITLE');
+    const alertMessage = this.translateService.instant('EXERCISES.DETAIL.DELETE_LOG_MESSAGE');
 
     const alert = await this.alertController.create({
       header: alertHeader,
@@ -301,9 +300,7 @@ export class ExerciseDetailPage implements AfterViewInit {
   private async deleteLog(log: WorkoutLog) {
     try {
       await this.logsService.remove(log);
-      const toastMessage = this.translateService.instant(
-        'EXERCISES.DETAIL.DELETE_LOG_SUCCESS',
-      );
+      const toastMessage = this.translateService.instant('EXERCISES.DETAIL.DELETE_LOG_SUCCESS');
       const toast = await this.toastController.create({
         message: toastMessage,
         color: 'success',
@@ -311,9 +308,7 @@ export class ExerciseDetailPage implements AfterViewInit {
 
       await toast.present();
     } catch (error) {
-      const toastMessage = this.translateService.instant(
-        'EXERCISES.DETAIL.DELETE_LOG_ERROR',
-      );
+      const toastMessage = this.translateService.instant('EXERCISES.DETAIL.DELETE_LOG_ERROR');
       const toast = await this.toastController.create({
         message: toastMessage,
         color: 'success',
@@ -321,5 +316,63 @@ export class ExerciseDetailPage implements AfterViewInit {
 
       await toast.present();
     }
+  }
+
+  async onUpdateExercise(exercise: Exercise) {
+    const result = await this.openModalExercise(exercise);
+
+    if (result.role === 'update') {
+      const message = this.translateService.instant('EXERCISES.LIST.UPDATED_SUCCESS');
+      const toast = await this.toastController.create({
+        message,
+        color: 'success',
+      });
+
+      toast.present();
+    }
+  }
+
+  async onDeleteExercise(exercise: Exercise) {
+    const alert = await this.alertController.create({
+      header: this.translateService.instant('EXERCISES.LIST.DELETE_CONFIRM_TITLE'),
+      message: this.translateService.instant('EXERCISES.LIST.DELETE_CONFIRM_MESSAGE', 
+        { name: exercise.name }
+      ),
+      buttons: [
+        {
+          text: this.translateService.instant('COMMON.CANCEL'),
+          role: 'cancel',
+        },
+        {
+          text: this.translateService.instant('COMMON.DELETE'),
+          role: 'destructive',
+          handler: async () => {
+            await this.exercisesService.remove(exercise.id);
+            const toast = await this.toastController.create({
+              message: this.translateService.instant('EXERCISES.LIST.DELETED_SUCCESS'),
+              color: 'success',
+              duration: 2000,
+            });
+
+            toast.present();
+
+            this.navController.navigateRoot('/exercises')
+          },
+        },
+      ],
+    });
+
+    alert.present();
+  }
+
+  private async openModalExercise(exercise?: Exercise) {
+    const modal = await this.modalController.create({
+      component: CreateExerciseComponent,
+      componentProps: { exercise },
+    });
+
+    await modal.present();
+    const result = await modal.onWillDismiss();
+    return result;
   }
 }

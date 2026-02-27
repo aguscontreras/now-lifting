@@ -149,5 +149,27 @@
 
     }
   </ion-list>
+
+  <div class="ion-margin">
+    <ion-button
+      expand="block"
+      fill="clear"
+      color="secondary"
+      (click)="onUpdateExercise(exercise)"
+    >
+      <ion-icon name="pencil" slot="start"></ion-icon>
+      {{ 'COMMON.EDIT' | translate }}
+    </ion-button>
+
+    <ion-button
+      expand="block"
+      fill="clear"
+      color="danger"
+      (click)="onDeleteExercise(exercise)"
+    >
+      <ion-icon name="trash" slot="start"></ion-icon>
+      {{ 'COMMON.DELETE' | translate }}
+    </ion-button>
+  </div>
 </ion-content>
 }
