@@ -6,6 +6,8 @@ import {
 } from '@feat/exercises/data';
 import { ExercisesStore } from '@feat/exercises/state';
 import { ExercisesPerformanceStore } from '@feat/exercises/state';
+import { WorkoutLogsStore } from '@feat/workout-logs/state';
+import { WorkoutLogsRepository } from '@feat/workout-logs/data';
 
 export type CreateExerciseDto = Pick<
   Exercise,
@@ -18,10 +20,10 @@ export type CreateExerciseDto = Pick<
 export class ExercisesService {
   private exercisesStore = inject(ExercisesStore);
   private exercisesRepository = inject(ExercisesRepository);
-  private exercisesPerformanceRepository = inject(
-    ExercisesPerformanceRepository,
-  );
+  private exercisesPerformanceRepository = inject(ExercisesPerformanceRepository);
   private exercisesPerformanceStore = inject(ExercisesPerformanceStore);
+  private logsStore = inject(WorkoutLogsStore);
+  private logsRepo = inject(WorkoutLogsRepository);
 
   async create(dto: CreateExerciseDto) {
     const exercise = new Exercise(
@@ -48,10 +50,12 @@ export class ExercisesService {
   }
 
   async remove(id: Exercise['id']) {
-    await this.exercisesRepository.delete(id);
-    await this.exercisesStore.remove(id);
+    await this.logsRepo.deleteByExerciseId(id);
+    await this.logsStore.removeByExerciseId(id);
     await this.exercisesPerformanceRepository.delete(id);
     await this.exercisesPerformanceStore.remove(id);
+    await this.exercisesRepository.delete(id);
+    await this.exercisesStore.remove(id);
   }
 
   async setOneRmGoal(

@@ -85,6 +85,10 @@ export class WorkoutLogsRepository {
     return this.table.delete(id);
   }
 
+  deleteByExerciseId(exerciseIdToDelete: WorkoutLog['exerciseId']) {
+    return this.table.where('exerciseId').equals(exerciseIdToDelete).delete();
+  }
+
   getAll() {
     return this.table.toArray();
   }

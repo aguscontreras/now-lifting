@@ -11,6 +11,7 @@ import {
   setActiveId,
   setEntities,
   resetActiveId,
+  deleteEntitiesByPredicate,
 } from '@ngneat/elf-entities';
 
 import { WorkoutLog, WorkoutLogView } from '@feat/workout-logs/models';
@@ -53,6 +54,14 @@ export class WorkoutLogsStore {
 
   remove(id: WorkoutLog['id']) {
     this.store.update(deleteEntities(id));
+  }
+
+  removeByExerciseId(exerciseIdToDelete: WorkoutLog['exerciseId']) {
+    this.store.update(
+      deleteEntitiesByPredicate(
+        ({ exerciseId }) => exerciseId === exerciseIdToDelete,
+      ),
+    );
   }
 
   set(logs: WorkoutLog[]) {
