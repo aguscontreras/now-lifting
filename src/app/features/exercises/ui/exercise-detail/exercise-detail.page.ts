@@ -39,6 +39,7 @@ import {
 import { addIcons } from 'ionicons';
 import {
   add,
+  eyeOutline,
   pencil,
   removeOutline,
   trash,
@@ -62,6 +63,7 @@ import { Exercise, ExercisePerformance } from '@feat/exercises/models';
 import { PerformanceColorPipe } from '@feat/exercises/pipes';
 import { ExercisesService } from '@feat/exercises/application';
 import { CreateExerciseComponent, SetGoalComponent } from '@feat/exercises/ui';
+import { ArraySlicePipe } from '@shared/pipes';
 
 echarts.use([LineChart, GridComponent, CanvasRenderer, LegendComponent]);
 
@@ -100,6 +102,7 @@ echarts.use([LineChart, GridComponent, CanvasRenderer, LegendComponent]);
     IonHeader,
     IonItemSliding,
     PerformanceColorPipe,
+    ArraySlicePipe,
   ],
   providers: [provideEchartsCore({ echarts })],
 })
@@ -122,10 +125,20 @@ export class ExerciseDetailPage implements AfterViewInit {
   performance$ = this.performanceStore.active$;
   logs$ = this.logsStore.logView$;
 
+  logListSize = 10;
+
   chartOption: echarts.EChartsCoreOption = {};
 
   constructor() {
-    addIcons({ add, trendingUp, trendingDown, removeOutline, trash, pencil });
+    addIcons({
+      add,
+      trendingUp,
+      trendingDown,
+      removeOutline,
+      trash,
+      pencil,
+      eyeOutline,
+    });
 
     combineLatest([this.performance$, this.logs$])
       .pipe(takeUntilDestroyed())

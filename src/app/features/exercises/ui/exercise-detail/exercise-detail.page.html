@@ -102,7 +102,7 @@
       <ion-label>{{ "EXERCISES.DETAIL.LOGS" | translate }}</ion-label>
     </ion-list-header>
 
-    @for(logView of logs; track logView.log.id) {
+    @for(logView of logs | arraySlice: logListSize; track logView.log.id) {
     <ion-item-sliding>
       <ion-item detail="true" button>
         <ion-label>
@@ -136,7 +136,7 @@
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-    } @empty {
+    }@empty {
     <ion-card class="card-empty">
       <ion-card-content>
         {{ 'EXERCISES.DETAIL.NO_LOGS' | translate }}
@@ -146,7 +146,19 @@
         {{ 'EXERCISES.DETAIL.ADD_LOG' | translate }}
       </ion-button>
     </ion-card>
-
+    }
+    <!--  -->
+    @if (logs && logs.length > logListSize && logListSize > 0) {
+    <ion-item button [detail]="false" (click)="logListSize = 0">
+      <ion-icon
+        slot="start"
+        size="small"
+        name="eye-outline"
+        color="primary"
+      ></ion-icon>
+      <ion-label color="primary">{{ 'COMMON.SEE_ALL' | translate}}</ion-label>
+      <ion-note slot="end" color="primary">({{ logs.length }})</ion-note>
+    </ion-item>
     }
   </ion-list>
 
