@@ -1,0 +1,141 @@
+@let log = log$ | async; @let exercise = exercise$ | async;
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/exercises"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>{{ 'WORKOUT_LOGS.DETAIL.TITLE' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+@if(log) {
+<ion-content>
+  <div class="ion-padding">
+    <ion-text color="medium">
+      <small>{{ log?.date | date:'short' }}</small>
+    </ion-text>
+
+    <div
+      class="ion-display-flex ion-align-items-center ion-justify-content-between"
+    >
+      <ion-text><h4>{{ exercise?.name }}</h4></ion-text>
+      <div>
+        <ion-chip color="dark" [outline]="true" class="ion-no-margin">
+          {{ exercise?.muscleGroup | muscleGroupTranslate }}
+        </ion-chip>
+      </div>
+    </div>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4">
+        <ion-card class="ion-no-margin">
+          <ion-card-header>
+            <ion-card-title> {{ log?.oneRm }} </ion-card-title>
+            <ion-card-subtitle>
+              {{ "WORKOUT_LOGS.DETAIL.ONE_RM" | translate}}
+            </ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="4">
+        <ion-card class="ion-no-margin">
+          <ion-card-header>
+            <ion-card-title> {{ log?.weight }} </ion-card-title>
+            <ion-card-subtitle>
+              {{ "WORKOUT_LOGS.DETAIL.WEIGHT" | translate}}
+            </ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="4">
+        <ion-card class="ion-no-margin">
+          <ion-card-header>
+            <ion-card-title> {{ log?.reps }} </ion-card-title>
+            <ion-card-subtitle>
+              {{ "WORKOUT_LOGS.DETAIL.REPS" | translate}}
+            </ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div>
+    <ion-text color="dark">
+      <h6 class="ion-no-margin ion-margin-top ion-margin-horizontal">
+        {{ 'WORKOUT_LOGS.DETAIL.FEELING_SCALE_LABEL' | translate }}
+      </h6>
+    </ion-text>
+    <ion-grid>
+      <ion-row>
+        @for(scale of feelingButtons; track scale) {
+        <ion-col>
+          <ion-button
+            fill="solid"
+            expand="block"
+            [color]="log.feelingScale === scale ? 'primary' : 'light'"
+            (click)="onFeelingScaleUpdate(log, scale)"
+            >{{scale}}</ion-button
+          >
+        </ion-col>
+        }
+      </ion-row>
+    </ion-grid>
+
+    <ion-text color="medium ion-margin-bottom">
+      <p class="ion-no-margin ion-text-center">
+        {{ 'WORKOUT_LOGS.DETAIL.WEIGHT_SCALE.' + log?.feelingScale | translate
+        }}
+      </p>
+    </ion-text>
+  </div>
+
+  <ion-card class="ion-margin-top">
+    <ion-card-header>
+      <ion-card-title
+        >{{ 'WORKOUT_LOGS.DETAIL.ESTIMATED_RMS' | translate }}</ion-card-title
+      >
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid class="ion-margin-top">
+        <ion-row>
+          @for(rms of rmsByReps$ | async; track rms.reps) {
+          <ion-col size="6" class="ion-padding-horizontal">
+            <ion-text color="medium"><span>{{ rms.reps }} RM: </span></ion-text>
+            <ion-text color="dark"><b>{{ rms.weight }} Kg.</b></ion-text>
+          </ion-col>
+          }
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <div class="ion-margin">
+    <ion-button
+      expand="block"
+      fill="clear"
+      color="secondary"
+      (click)="onUpdateLog(log)"
+    >
+      <ion-icon name="pencil" slot="start"></ion-icon>
+      {{ 'COMMON.EDIT' | translate }}
+    </ion-button>
+
+    <ion-button
+      expand="block"
+      fill="clear"
+      color="danger"
+      (click)="onDeleteLog(log)"
+    >
+      <ion-icon name="trash" slot="start"></ion-icon>
+      {{ 'COMMON.DELETE' | translate }}
+    </ion-button>
+  </div>
+</ion-content>
+}

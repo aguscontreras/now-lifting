@@ -66,7 +66,7 @@ export class RmCalculator {
     }
   }
 
-  getRmByReps(oneRm: number, max = 16): { reps: number; weight: number }[] {
+  getRmByReps(oneRm: number, max = 20): { reps: number; weight: number }[] {
     return Array(max).fill({}).map((_, index) => {
       const reps = index + 1;
       return {

@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class MuscleGroupTranslatePipe implements PipeTransform {
   constructor(private translate: TranslateService) {}
 
-  transform(value: string): string {
+  transform(value: string | null | undefined): string {
     if (!value) return '';
 
     const key = `MUSCLE_GROUPS.${value.toUpperCase()}`;

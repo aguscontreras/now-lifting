@@ -10,6 +10,7 @@ export interface WorkoutLog extends DummyLog {
   id: string;
   date: Date;
   exerciseId: string;
+  feelingScale: number;
   time?: number;
   notes?: string;
 }
@@ -26,5 +27,6 @@ export class WorkoutLog implements WorkoutLog {
     this.reps = reps;
     this.weight = weight;
     this.oneRm = oneRm;
+    this.feelingScale = 0;
   }
 }

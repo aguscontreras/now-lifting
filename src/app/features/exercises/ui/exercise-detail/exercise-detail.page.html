@@ -105,7 +105,12 @@
 
     @for(logView of logs | arraySlice: logListSize; track logView.log.id) {
     <ion-item-sliding>
-      <ion-item detail="true" button class="log-item">
+      <ion-item
+        detail="true"
+        button
+        class="log-item"
+        (click)="onViewLogDetail(logView.log.id)"
+      >
         <ion-label>
           <div class="log-header">
             <h2 class="log-oneRm">{{ logView.log.oneRm }} Kg</h2>

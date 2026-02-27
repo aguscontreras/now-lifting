@@ -60,6 +60,22 @@
       "TITLE": "Crear registro",
       "WEIGHT_LABEL": "Peso levantado",
       "REPS_LABEL": "Repeticiones"
+    },
+    "DETAIL": {
+      "TITLE": "Detalle de registro",
+      "ONE_RM": "1 RM",
+      "REPS": "Reps.",
+      "WEIGHT": "Peso",
+      "ESTIMATED_RMS": "RMs estimados",
+      "FEELING_SCALE_LABEL": "¿Como sentiste el peso?",
+      "WEIGHT_SCALE": {
+        "0": "-",
+        "1": "Demasiado liviano",
+        "2": "Liviano",
+        "3": "Equilibrado",
+        "4": "Exigente",
+        "5": "Demasiado exigente"
+      }
     }
   },
   "COMMON": {
@@ -69,7 +85,8 @@
     "VIEW": "Ver",
     "EDIT": "Editar",
     "DELETE": "Eliminar",
-    "NEXT": "Siguiente"
+    "NEXT": "Siguiente",
+    "SEE_ALL": "Ver todo"
   },
   "MESSAGES": {
     "OPTIONAL": "Opcional",
