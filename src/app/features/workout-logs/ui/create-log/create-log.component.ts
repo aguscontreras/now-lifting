@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, inject, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  inject,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -14,6 +21,7 @@ import {
   IonHeader,
   IonTitle,
 } from '@ionic/angular/standalone';
+import { KG_TO_LB, WeightUnit } from '@core/domain';
 import { NumpadComponent, NumpadInputDirective } from '@shared/components';
 import { DummyLog, WorkoutLog } from '@feat/workout-logs/models';
 
@@ -65,8 +73,8 @@ export class CreateLogComponent implements OnInit, AfterViewInit {
     if (this.log) {
       this.form.patchValue({
         reps: String(this.log.reps),
-        weight: String(this.log.weight)
-      })
+        weight: String(this.log.weight),
+      });
     }
   }
 
@@ -78,8 +86,15 @@ export class CreateLogComponent implements OnInit, AfterViewInit {
 
   createForm() {
     return this.formBuilder.nonNullable.group({
-      weight: ['', [Validators.required, Validators.pattern(/^(?!0+(\.0+)?$)(0|[1-9]\d*)(\.\d+)?$/)]],
+      weight: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^(?!0+(\.0+)?$)(0|[1-9]\d*)(\.\d+)?$/),
+        ],
+      ],
       reps: ['', [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
+      unit: ['kg' as WeightUnit],
     });
   }
 
@@ -119,9 +134,15 @@ export class CreateLogComponent implements OnInit, AfterViewInit {
   }
 
   parseDummyLog(): DummyLog {
+    let { unit, weight, reps } = this.form.getRawValue();
+
+    if (unit === 'lb') {
+      weight = String(Math.round(+weight / KG_TO_LB));
+    }
+
     return {
-      weight: +this.f.weight.value,
-      reps: +this.f.reps.value,
+      weight: +weight,
+      reps: +reps,
       oneRm: 0,
     };
   }

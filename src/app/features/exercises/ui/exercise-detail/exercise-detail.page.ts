@@ -63,7 +63,7 @@ import { Exercise, ExercisePerformance } from '@feat/exercises/models';
 import { PerformanceColorPipe } from '@feat/exercises/pipes';
 import { ExercisesService } from '@feat/exercises/application';
 import { CreateExerciseComponent, SetGoalComponent } from '@feat/exercises/ui';
-import { ArraySlicePipe } from '@shared/pipes';
+import { ArraySlicePipe, WeightPipe } from '@shared/pipes';
 
 echarts.use([LineChart, GridComponent, CanvasRenderer, LegendComponent]);
 
@@ -103,6 +103,7 @@ echarts.use([LineChart, GridComponent, CanvasRenderer, LegendComponent]);
     IonItemSliding,
     PerformanceColorPipe,
     ArraySlicePipe,
+    WeightPipe
   ],
   providers: [provideEchartsCore({ echarts })],
 })

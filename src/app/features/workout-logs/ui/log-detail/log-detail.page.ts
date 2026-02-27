@@ -35,7 +35,7 @@ import { WorkoutLogService } from '@feat/workout-logs/application';
 import { DummyLog, WorkoutLog } from '@feat/workout-logs/models';
 import { Exercise } from '@feat/exercises/models';
 import { ExercisesRepository } from '@feat/exercises/data';
-import { MuscleGroupTranslatePipe } from '@shared/pipes';
+import { MuscleGroupTranslatePipe, WeightPipe } from '@shared/pipes';
 import { CreateLogComponent } from '../create-log';
 
 @Component({
@@ -57,6 +57,7 @@ import { CreateLogComponent } from '../create-log';
     IonText,
     CommonModule,
     MuscleGroupTranslatePipe,
+    WeightPipe,
     IonTitle,
     IonBackButton,
     IonButtons,

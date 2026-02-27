@@ -34,7 +34,7 @@
       <ion-col size="4">
         <ion-card class="ion-no-margin">
           <ion-card-header>
-            <ion-card-title> {{ log?.oneRm }} </ion-card-title>
+            <ion-card-title> {{ log?.oneRm | weight }} </ion-card-title>
             <ion-card-subtitle>
               {{ "WORKOUT_LOGS.DETAIL.ONE_RM" | translate}}
             </ion-card-subtitle>
@@ -45,7 +45,7 @@
       <ion-col size="4">
         <ion-card class="ion-no-margin">
           <ion-card-header>
-            <ion-card-title> {{ log?.weight }} </ion-card-title>
+            <ion-card-title> {{ log?.weight | weight }} </ion-card-title>
             <ion-card-subtitle>
               {{ "WORKOUT_LOGS.DETAIL.WEIGHT" | translate}}
             </ion-card-subtitle>
@@ -108,7 +108,7 @@
           @for(rms of rmsByReps$ | async; track rms.reps) {
           <ion-col size="6" class="ion-padding-horizontal">
             <ion-text color="medium"><span>{{ rms.reps }} RM: </span></ion-text>
-            <ion-text color="dark"><b>{{ rms.weight }} Kg.</b></ion-text>
+            <ion-text color="dark"><b>{{ rms.weight | weight }}</b></ion-text>
           </ion-col>
           }
         </ion-row>

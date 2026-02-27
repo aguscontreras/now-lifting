@@ -40,7 +40,7 @@
             <ion-card-title
               [color]="performance.bestOneRm > performance.oneRmGoal ? 'success' : 'secondary'"
             >
-              {{ performance.oneRmGoal }}
+              {{ performance.oneRmGoal | weight }}
             </ion-card-title>
             <ion-card-subtitle>
               {{ "EXERCISES.DETAIL.GOAL" | translate}}
@@ -52,7 +52,7 @@
       <ion-col size="6">
         <ion-card class="ion-no-margin">
           <ion-card-header>
-            <ion-card-title> {{ performance.initialOneRm }} </ion-card-title>
+            <ion-card-title> {{ performance.initialOneRm | weight }} </ion-card-title>
             <ion-card-subtitle>
               {{ "EXERCISES.DETAIL.INITIAL" | translate}}
             </ion-card-subtitle>
@@ -63,7 +63,7 @@
       <ion-col size="6">
         <ion-card class="ion-no-margin">
           <ion-card-header>
-            <ion-card-title> {{ performance.lastOneRm }} </ion-card-title>
+            <ion-card-title> {{ performance.lastOneRm | weight }} </ion-card-title>
             <ion-card-subtitle>
               {{ "EXERCISES.DETAIL.LAST" | translate}}
             </ion-card-subtitle>
@@ -74,7 +74,7 @@
       <ion-col size="6">
         <ion-card class="ion-no-margin">
           <ion-card-header>
-            <ion-card-title>{{ performance.bestOneRm }}</ion-card-title>
+            <ion-card-title>{{ performance.bestOneRm | weight }}</ion-card-title>
             <ion-card-subtitle>
               {{ "EXERCISES.DETAIL.BEST" | translate}}
             </ion-card-subtitle>
@@ -113,9 +113,9 @@
       >
         <ion-label>
           <div class="log-header">
-            <h2 class="log-oneRm">{{ logView.log.oneRm }} Kg</h2>
+            <h2 class="log-oneRm">{{ logView.log.oneRm | weight}}</h2>
             <p class="log-reps-weight">
-              {{ logView.log.weight }} Kg x {{ logView.log.reps }}
+              {{ logView.log.weight | weight }} x {{ logView.log.reps }}
             </p>
           </div>
           <div class="log-meta">
@@ -129,7 +129,7 @@
           slot="end"
           [color]="logView | performanceColor"
         >
-          {{ logView.oneRmDiff }}
+          {{ logView.oneRmDiff | weight }}
         </ion-note>
         }
       </ion-item>
