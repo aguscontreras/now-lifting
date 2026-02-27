@@ -1,4 +1,4 @@
-import { inject, provideAppInitializer } from '@angular/core';
+import { inject, LOCALE_ID, provideAppInitializer } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import {
   RouteReuseStrategy,
@@ -6,6 +6,7 @@ import {
   withPreloading,
   PreloadAllModules,
 } from '@angular/router';
+import { registerLocaleData } from '@angular/common';
 import { provideHttpClient } from '@angular/common/http';
 import {
   IonicRouteStrategy,
@@ -21,9 +22,22 @@ import { db } from '@core/db';
 import { DbSeedService } from '@core/app-init';
 import { MuscleGroupLoader } from '@core/app-init';
 import { ExerciseHydrationService } from '@feat/exercises/application';
+import localeEs from '@angular/common/locales/es';
+import localeEn from '@angular/common/locales/en';
+
+registerLocaleData(localeEs);
+registerLocaleData(localeEn);
 
 bootstrapApplication(AppComponent, {
   providers: [
+    {
+      provide: LOCALE_ID,
+      useFactory: () => {
+        const supported = ['es', 'en'];
+        const userLang = navigator.language?.split('-')[0];
+        return supported.includes(userLang) ? userLang : 'es';
+      },
+    },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular({
       toastDuration: 3000,
