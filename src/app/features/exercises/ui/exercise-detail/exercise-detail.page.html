@@ -23,20 +23,7 @@
 
 @if(exercise && performance) {
 <ion-content>
-  <ion-card>
-    <ion-card-content>
-      <ion-textarea
-        autoGrow
-        labelPlacement="floating"
-        [label]="'EXERCISES.DETAIL.NOTES' | translate"
-        [(ngModel)]="exercise.description"
-        (ionChange)="onUpdateNote(exercise)"
-      ></ion-textarea>
-    </ion-card-content>
-  </ion-card>
-
   <!--  -->
-
   @if (logs && logs.length) {
   <div echarts [options]="chartOption" class="demo-chart"></div>
   }
@@ -97,6 +84,20 @@
     </ion-row>
   </ion-grid>
 
+  <ion-card>
+    <ion-card-content>
+      <ion-textarea
+        autoGrow
+        labelPlacement="floating"
+        [label]="'EXERCISES.DETAIL.NOTES' | translate"
+        [(ngModel)]="exercise.description"
+        (ionChange)="onUpdateNote(exercise)"
+      ></ion-textarea>
+    </ion-card-content>
+  </ion-card>
+
+  <!--  -->
+
   <ion-list inset lines="full" #logsList>
     <ion-list-header>
       <ion-label>{{ "EXERCISES.DETAIL.LOGS" | translate }}</ion-label>
@@ -104,12 +105,17 @@
 
     @for(logView of logs | arraySlice: logListSize; track logView.log.id) {
     <ion-item-sliding>
-      <ion-item detail="true" button>
+      <ion-item detail="true" button class="log-item">
         <ion-label>
-          <h2>{{ logView.log.oneRm }} Kg</h2>
-          <p color="medium">
-            {{ logView.log.weight }} x {{ logView.log.reps }}
-          </p>
+          <div class="log-header">
+            <h2 class="log-oneRm">{{ logView.log.oneRm }} Kg</h2>
+            <p class="log-reps-weight">
+              {{ logView.log.weight }} Kg x {{ logView.log.reps }}
+            </p>
+          </div>
+          <div class="log-meta">
+            <small>{{ logView.log.date | date: 'short' }}</small>
+          </div>
         </ion-label>
 
         @if (logView.oneRmDiff) {

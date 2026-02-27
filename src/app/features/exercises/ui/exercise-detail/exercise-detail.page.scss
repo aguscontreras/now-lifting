@@ -7,3 +7,21 @@
   margin: 0;
   box-shadow: none;
 }
+
+.log-item {
+  .log-header {
+    display: flex;
+    gap: 1rem;
+    align-items: end;
+    margin-bottom: .5rem;
+
+    .log-reps-weight {
+      margin: 0;
+      color: var(--ion-color-medium);
+    }
+  }
+
+  .log-meta {
+    color: var(--ion-color-medium);
+  }
+}
